@@ -15,7 +15,7 @@ class InfoBoxParser
     item = information_value.text.strip
     item = @doc.text.strip if item.empty?
     item = @doc.search('img').attr('data-image-name').value if item.empty?
-    return item
+    item
   end
 
   def information_value

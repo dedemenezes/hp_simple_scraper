@@ -1,8 +1,17 @@
 class BookScraper
+  attr_reader :urls
+
   def initialize(attributes = {})
     @doc = attributes[:doc]
     @url = attributes[:url]
-    
+  end
+
+  def books_urls
+    @urls = []
+    @doc.search('ol > li > i > a').each do |a_tag|
+      @urls << { data: a_tag.attr('title'), url: a_tag.attr('href') }
+    end
+    @urls
   end
 
   def characters_index_url

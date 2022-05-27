@@ -17,7 +17,7 @@ class InfoBoxScraper
       else
         list_items = parser.information_list.search('li')
         list_items.each do |element|
-          item_parser = InformationParser.new(element)
+          item_parser = InfoBoxParser.new(element)
           values << item_parser.build_information_hash
         end
       end
