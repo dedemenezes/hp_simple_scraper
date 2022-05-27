@@ -1,5 +1,6 @@
 class BookScraper
   attr_reader :urls
+  attr_writer :doc
 
   def initialize(attributes = {})
     @doc = attributes[:doc]
