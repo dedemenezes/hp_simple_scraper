@@ -1,3 +1,4 @@
+require 'pry-byebug'
 require_relative '../lib/models/book'
 
 RSpec.describe Book do
@@ -5,8 +6,8 @@ RSpec.describe Book do
 
   describe '#prepare_attribute_name' do
     it 'remove whitespace and add `_`' do
-      actual = book.prepare_attribute_name('banner url')
-      expected = 'banner_url'
+      actual = book.prepare_attribute_name('meta programming')
+      expected = 'meta_programming'
       expect(actual).to eq expected
     end
   end
@@ -15,11 +16,12 @@ RSpec.describe Book do
     key = 'banner'
     url = 'https://banner.com'
     values = [{ data: key, url: url }]
+    book.build(key, values)
+
     it 'add new instance variable' do
-      book.build(key, values)
-      expect { book.banner }.not_to raise_error
-      expect(book.banner).to be_a(String)
-      expect(book.banner).to eq(key)
+      variables = book.instance_variables
+      actual = variables.include? "@#{key}".to_sym
+      expect(actual).to be_truthy
     end
 
     it 'add new instance variable with url sufix' do
@@ -30,9 +32,9 @@ RSpec.describe Book do
     end
 
     it 'add new attribute reader' do
-      # book.define_attribute_readers
+      expect { book.banner }.not_to raise_error
+      expect(book.banner).to be_a(String)
+      expect(book.banner).to eq(key)
     end
-    # book.build('banner', )
-    # expect(book).to respond_to(:banner)
   end
 end
