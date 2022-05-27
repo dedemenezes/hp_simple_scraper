@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'pry-byebug'
 
 class WikiScraper
+  BASE_URL = 'https://harrypotter.fandom.com'
   attr_reader :html_doc, :information_container_doc
 
   def initialize(attributes = {})
@@ -13,8 +14,9 @@ class WikiScraper
   end
 
   def build_nokogiri_doc_from_url
-    html_file = Faraday.get(@url).body
+    html_file = Faraday.get("#{BASE_URL}#{@url}").body
     @html_doc = Nokogiri::HTML(html_file)
+    @html_doc
   end
 
   def build_nokogiri_doc_from_file
