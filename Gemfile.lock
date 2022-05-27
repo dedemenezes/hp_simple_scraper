@@ -18,6 +18,7 @@ GEM
       byebug (~> 11.0)
       pry (~> 0.13.0)
     racc (1.6.0)
+    rake (13.0.6)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -40,6 +41,7 @@ DEPENDENCIES
   faraday (~> 2.3)
   nokogiri (~> 1.13, >= 1.13.6)
   pry-byebug
+  rake (~> 13.0, >= 13.0.6)
   rspec (~> 3.11)
 
 BUNDLED WITH

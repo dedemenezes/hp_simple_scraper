@@ -4,7 +4,7 @@ require_relative '../lib/book_scraper'
 RSpec.describe BookScraper do
 
   describe '#characters_index_url' do
-    doc = WikiScraper.new(file_path: 'hp_one.html').build_nokogiri_doc_from_file
+    doc = WikiScraper.new(file_path: 'data/hp_one.html').build_nokogiri_doc_from_file
     scraper = BookScraper.new(doc: doc)
     it 'return correct url' do
       expect(scraper.characters_index_url).to eq('/wiki/Harry_Potter_and_the_Philosopher%27s_Stone_(character_index)')
@@ -12,7 +12,7 @@ RSpec.describe BookScraper do
   end
 
   describe '#books_urls' do
-    doc = WikiScraper.new(file_path: 'book_series.html').build_nokogiri_doc_from_file
+    doc = WikiScraper.new(file_path: 'data/book_series.html').build_nokogiri_doc_from_file
     scraper = BookScraper.new(doc: doc)
     it 'returns all seven books urls' do
       actual = scraper.books_urls

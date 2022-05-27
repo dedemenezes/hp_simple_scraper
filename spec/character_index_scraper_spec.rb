@@ -3,7 +3,7 @@ require_relative '../lib/character_index_scraper'
 RSpec.describe CharacterIndexScraper do
   describe '#all_urls' do
     context 'when organizard in tables' do
-      doc = WikiScraper.new(file_path: 'char_index_one.html').build_nokogiri_doc_from_file
+      doc = WikiScraper.new(file_path: 'data/char_index_one.html').build_nokogiri_doc_from_file
       chars = %w[/wiki/Norberta /wiki/Charlie_Weasley%27s_colleagues /wiki/Ronan /wiki/Bane /wiki/Firenze /wiki/Unicorn]
       chars.each do |character_url|
         let(:char) { CharacterIndexScraper.new doc: doc }
@@ -16,7 +16,7 @@ RSpec.describe CharacterIndexScraper do
     end
 
     context 'when organized in lists' do
-      doc = WikiScraper.new(file_path: 'char_index_seven_lists.html').build_nokogiri_doc_from_file
+      doc = WikiScraper.new(file_path: 'data/char_index_seven_lists.html').build_nokogiri_doc_from_file
       char = CharacterIndexScraper.new doc: doc
       actual = char.all_urls
 
