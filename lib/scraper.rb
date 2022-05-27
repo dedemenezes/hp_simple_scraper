@@ -10,13 +10,6 @@ html_doc = Nokogiri::HTML(file)
 # label = information.search('.pi-data-label').text.strip
 # find infoblock
 
-def list?
-  information.search('.pi-data-value').search('ul')
-end
-
-def multiple_values?(information)
-  !information.search('.pi-data-value').search('ul').empty?
-end
 
 informations = {}
 
