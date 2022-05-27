@@ -25,6 +25,6 @@ class InfoBoxScraper
       information_name = information.attr('data-source')
       @informations[information_name] = values
     end
-    self
+    informations
   end
 end
