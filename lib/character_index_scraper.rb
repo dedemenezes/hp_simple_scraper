@@ -14,9 +14,7 @@ class CharacterIndexScraper
   end
 
   def all_urls
-    return scrape_from_lists if @html_doc.search('.article-table').empty?
-
-    scrape_from_tables
+    @html_doc.search('.article-table').empty? ? scrape_from_lists : scrape_from_tables
     self
   end
 
@@ -25,7 +23,19 @@ class CharacterIndexScraper
   end
 
   def push_data_to_urls(nokogiri_a_tag)
-    @urls << { data: nokogiri_a_tag.attr('title'), url: nokogiri_a_tag.attr('href') }
+    if nokogiri_a_tag.attr('href')
+      return if nokogiri_a_tag.text.match? /index/
+
+      @urls << { data: nokogiri_a_tag.attr('title'), url: nokogiri_a_tag.attr('href') }
+    else
+      push_text(nokogiri_a_tag)
+    end
+    self
+  end
+
+  def push_text(a_tag)
+    @urls << { data: a_tag.text }
+    self
   end
 
   def scrape_from_lists
@@ -41,16 +51,10 @@ class CharacterIndexScraper
     @html_doc.search('.article-table').each do |table|
       table.search('tr').each do |element|
         a_tag = element.first_element_child.children
-        href = a_tag.attr('href')
-        if href
-          url = href.value
-          data = a_tag.attr('title').value
-          @urls << { data: data, url: url }
-        else
-          @urls << { data: a_tag.text }
-        end
+        push_data_to_urls(a_tag.first)
       end
     end
+    self
   end
 
   private
